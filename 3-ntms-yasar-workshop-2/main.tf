@@ -1,37 +1,37 @@
 resource "azurerm_resource_group" "rg" {
-  name     = "yasar-ntmstf-rg"
-  location = "West US"
+  name     = "rg-${var.BU}-${var.env}"
+  location = var.location
   tags = {
-    env   = "dev"
-    owner = "yasar"
+    env   = var.env
+    owner = var.owner
   }
 }
 
 resource "azurerm_virtual_network" "vnet" {
-  name                = "yasar-vnet"
+  name                = "vnet-${var.BU}-${var.env}"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  address_space       = ["10.1.0.0/16"]
+  address_space       = var.vnet_address_space
   tags = {
-    env   = "dev"
-    owner = "yasar"
+    env   = var.env
+    owner = var.owner
   }
 }
 
 resource "azurerm_subnet" "snet" {
-  name                 = "web-subnet"
+  name                 = "snet-${var.BU}-${var.env}"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.1.0.0/24"]
+  address_prefixes     = var.subnet_address_prefixes
 }
 
 resource "azurerm_network_security_group" "nsg" {
-  name                = "yasar-nsg"
+  name                = "nsg-${var.BU}-${var.env}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   tags = {
-    env   = "dev"
-    owner = "yasar"
+    env   = var.env
+    owner = var.owner
   }
 }
 

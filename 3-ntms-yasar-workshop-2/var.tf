@@ -1,7 +1,7 @@
-variable "rg_name" {
+variable "BU" {
     description = "The name of the resource group"
     type        = string
-    default     = "yasar-ntmstf-rg"
+    default     = "IT-infra"
   
 }
 
@@ -12,9 +12,33 @@ variable "location" {
   
 }
 
-variable "vnet_name" {
-    description = "The name of the virtual network"
-    type        = string
-    default     = "yasar-vnet"
-  
+
+
+variable "vnet_address_space" {
+    description = "The address space of the virtual network"
+    type        = list(string)
+    default     = ["10.1.0.0/16"]
+
 }
+
+
+variable "subnet_address_prefixes" {
+    description = "The address prefixes of the subnet"
+    type        = list(string)
+    default     = ["10.1.1.0/24"]
+
+}
+
+
+
+variable "owner" {
+    description = "The name of the HTTP security rule"
+    type        = string
+    default     = "yasar"
+ }
+
+variable "env" {
+    description = ""
+    type        = string
+    default     = "dev"
+ }
