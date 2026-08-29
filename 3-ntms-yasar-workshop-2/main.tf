@@ -32,11 +32,19 @@ resource "azurerm_network_security_rule" "http" {
   priority                    = local.nsg_rules.http.priority
   direction                   = local.nsg_rules.http.direction
   access                      = local.nsg_rules.http.access
+<<<<<<< HEAD
   protocol                    = local.nsg_rules.http.protocol
   source_port_range           = local.nsg_rules.http.source_port_range
   destination_port_range      = local.nsg_rules.http.destination_port_range
   source_address_prefix       = local.nsg_rules.http.source_address_prefix
   destination_address_prefix  = local.nsg_rules.http.destination_address_prefix
+=======
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+>>>>>>> 275cd995c7bdf371d3ae1b8eb24a3331834cd284
   resource_group_name         = azurerm_resource_group.rg.name
   network_security_group_name = azurerm_network_security_group.nsg.name
 }
@@ -45,12 +53,21 @@ resource "azurerm_network_security_rule" "rdp" {
   name                        = local.nsg_rules.rdp.name
   priority                    = local.nsg_rules.rdp.priority
   direction                   = local.nsg_rules.rdp.direction
+<<<<<<< HEAD
   access                      = local.nsg_rules.rdp.access
   protocol                    = local.nsg_rules.rdp.protocol
   source_port_range           = local.nsg_rules.rdp.source_port_range
   destination_port_range      = local.nsg_rules.rdp.destination_port_range
   source_address_prefix       = local.nsg_rules.rdp.source_address_prefix
   destination_address_prefix  = local.nsg_rules.rdp.destination_address_prefix
+=======
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "3389"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+>>>>>>> 275cd995c7bdf371d3ae1b8eb24a3331834cd284
   resource_group_name         = azurerm_resource_group.rg.name
   network_security_group_name = azurerm_network_security_group.nsg.name
 }
