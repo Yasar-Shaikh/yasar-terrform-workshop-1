@@ -55,5 +55,6 @@ resource "azurerm_network_security_rule" "rdp" {
   network_security_group_name = azurerm_network_security_group.nsg.name
 }
 
+&
 
 
