@@ -1,12 +1,12 @@
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-${var.BU}-${var.env}"
+  name     = local.rg_name
   location = var.location
   tags = local.common_tags
   }
-}
+
 
 resource "azurerm_virtual_network" "vnet" {
-  name                = "vnet-${var.BU}-${var.env}"
+  name                = local.name_prefix
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   address_space       = var.vnet_address_space
@@ -14,14 +14,14 @@ resource "azurerm_virtual_network" "vnet" {
 }
 
 resource "azurerm_subnet" "snet" {
-  name                 = "snet-${var.BU}-${var.env}"
+  name                 = local.name_prefix
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = var.subnet_address_prefixes
 }
 
 resource "azurerm_network_security_group" "nsg" {
-  name                = "nsg-${var.BU}-${var.env}"
+  name                = local.name_prefix
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   tags = local.common_tags
