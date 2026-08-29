@@ -28,10 +28,10 @@ resource "azurerm_network_security_group" "nsg" {
 }
 
 resource "azurerm_network_security_rule" "http" {
-  name                        = "allow-http"
-  priority                    = 300
-  direction                   = "Inbound"
-  access                      = "Allow"
+  name                        = local.nsg_rules.http.name
+  priority                    = local.nsg_rules.http.priority
+  direction                   = local.nsg_rules.http.direction
+  access                      = local.nsg_rules.http.access
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = "*"
@@ -42,9 +42,9 @@ resource "azurerm_network_security_rule" "http" {
 }
 
 resource "azurerm_network_security_rule" "rdp" {
-  name                        = "rdp-allow"
-  priority                    = 400
-  direction                   = "Inbound"
+  name                        = local.nsg_rules.rdp.name
+  priority                    = local.nsg_rules.rdp.priority
+  direction                   = local.nsg_rules.rdp.direction
   access                      = "Allow"
   protocol                    = "Tcp"
   source_port_range           = "*"
