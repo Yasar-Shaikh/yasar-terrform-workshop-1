@@ -6,7 +6,7 @@ resource "azurerm_resource_group" "rg" {
 
 
 resource "azurerm_virtual_network" "vnet" {
-  name                = local.name_prefix
+  name                = local.vnet_name
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   address_space       = var.vnet_address_space
@@ -14,43 +14,43 @@ resource "azurerm_virtual_network" "vnet" {
 }
 
 resource "azurerm_subnet" "snet" {
-  name                 = local.name_prefix
+  name                 = local.subnet_name
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = var.subnet_address_prefixes
 }
 
 resource "azurerm_network_security_group" "nsg" {
-  name                = local.name_prefix
+  name                = local.nsg_name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   tags = local.common_tags
 }
 
 resource "azurerm_network_security_rule" "http" {
-  name                        = "allow-http"
-  priority                    = 300
-  direction                   = "Inbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_range      = "*"
-  source_address_prefix       = "*"
-  destination_address_prefix  = "*"
+  name                        = local.nsg_rules.http.name
+  priority                    = local.nsg_rules.http.priority
+  direction                   = local.nsg_rules.http.direction
+  access                      = local.nsg_rules.http.access
+  protocol                    = local.nsg_rules.http.protocol
+  source_port_range           = local.nsg_rules.http.source_port_range
+  destination_port_range      = local.nsg_rules.http.destination_port_range
+  source_address_prefix       = local.nsg_rules.http.source_address_prefix
+  destination_address_prefix  = local.nsg_rules.http.destination_address_prefix
   resource_group_name         = azurerm_resource_group.rg.name
   network_security_group_name = azurerm_network_security_group.nsg.name
 }
 
 resource "azurerm_network_security_rule" "rdp" {
-  name                        = "rdp-allow"
-  priority                    = 400
-  direction                   = "Inbound"
-  access                      = "Allow"
-  protocol                    = "Tcp"
-  source_port_range           = "*"
-  destination_port_range      = "3389"
-  source_address_prefix       = "*"
-  destination_address_prefix  = "*"
+  name                        = local.nsg_rules.rdp.name
+  priority                    = local.nsg_rules.rdp.priority
+  direction                   = local.nsg_rules.rdp.direction
+  access                      = local.nsg_rules.rdp.access
+  protocol                    = local.nsg_rules.rdp.protocol
+  source_port_range           = local.nsg_rules.rdp.source_port_range
+  destination_port_range      = local.nsg_rules.rdp.destination_port_range
+  source_address_prefix       = local.nsg_rules.rdp.source_address_prefix
+  destination_address_prefix  = local.nsg_rules.rdp.destination_address_prefix
   resource_group_name         = azurerm_resource_group.rg.name
   network_security_group_name = azurerm_network_security_group.nsg.name
 }

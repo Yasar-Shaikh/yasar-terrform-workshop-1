@@ -13,17 +13,20 @@ locals {
 
 
   nsg_rules = {
+
     http = {
       name                        = "allow-http"
       priority                    = 300
       direction                   = "Inbound"
       access                      = "Allow"
       protocol                    = "Tcp"
-      source_port_range           = "*"
+      source_port_range           = "80"
       destination_port_range      = "*"
       source_address_prefix       = "*"
       destination_address_prefix  = "*"
     }
+
+
     rdp = {
       name                        = "rdp-allow"
       priority                    = 400
