@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "rg" {
-  name     = "yasar-ntmstf-rg"
+  name     = "yasar1-ntmstf-rg"
   location = "West US"
   tags = {
     env   = "dev"
@@ -39,6 +39,9 @@ resource "azurerm_network_security_group" "nsg" {
     owner = "yasar"
   }
   depends_on = [ azurerm_virtual_network.vnet ]
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "azurerm_network_security_rule" "http" {
@@ -87,4 +90,4 @@ resource "azurerm_subnet_network_security_group_association" "snet_nsg_assoc" {
   subnet_id                 = azurerm_subnet.snet["web"].id
   network_security_group_id = azurerm_network_security_group.nsg.id
 }
-#
+
