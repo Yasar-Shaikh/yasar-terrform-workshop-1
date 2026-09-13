@@ -87,3 +87,4 @@ resource "azurerm_subnet_network_security_group_association" "snet_nsg_assoc" {
   subnet_id                 = azurerm_subnet.snet["web"].id
   network_security_group_id = azurerm_network_security_group.nsg.id
 }
+#
