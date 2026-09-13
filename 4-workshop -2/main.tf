@@ -19,10 +19,15 @@ resource "azurerm_virtual_network" "vnet" {
 }
 
 resource "azurerm_subnet" "snet" {
-  name                 = "web-subnet"
+  for_each = {
+    web = "10.1.0.0/24"
+    app = "10.1.2.0/24"
+    db  = "10.1.3.0/24"
+  }
+  name                 = "${each.key}-subnet"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.1.0.0/24"]
+  address_prefixes     = [each.value]
 }
 
 resource "azurerm_network_security_group" "nsg" {
@@ -64,13 +69,14 @@ resource "azurerm_network_security_rule" "rdp" {
 }
 
 resource "azurerm_network_interface" "nic" {
-  name                = "yasar-nic"
+  count = 2
+  name                = "yasar-nic-${count.index}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = azurerm_subnet.snet.id
+    subnet_id                     = azurerm_subnet.snet["web"].id
     private_ip_address_allocation = "Dynamic"
   }
 }
