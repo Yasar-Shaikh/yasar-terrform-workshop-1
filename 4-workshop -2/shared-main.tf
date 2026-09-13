@@ -4,13 +4,13 @@ resource "azurerm_storage_account" "sa" {
   location            = azurerm_resource_group.rg-shared.location
   account_tier        = "Standard"
   account_replication_type = "LRS"
-  provider = azurerm.shared
+  provider = azurerm.SB2-shared
  }
 
  resource "azurerm_resource_group" "rg-shared" {
    name     = "ntms-shared-yasar-RG"
    location = "West US"
-   provider = azurerm.shared
+   provider = azurerm.SB2-shared
  }
 
 resource "random_string" "rs" {

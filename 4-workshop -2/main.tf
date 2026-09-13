@@ -5,6 +5,7 @@ resource "azurerm_resource_group" "rg" {
     env   = "dev"
     owner = "yasar"
   }
+  provider = azurerm.SB1-infra
 }
 
 resource "azurerm_virtual_network" "vnet" {
@@ -16,6 +17,7 @@ resource "azurerm_virtual_network" "vnet" {
     env   = "dev"
     owner = "yasar"
   }
+   provider = azurerm.SB1-infra
 }
 
 resource "azurerm_subnet" "snet" {
@@ -42,6 +44,7 @@ resource "azurerm_network_security_group" "nsg" {
   lifecycle {
     create_before_destroy = true
   }
+  provider = azurerm.SB1-infra
 }
 
 resource "azurerm_network_security_rule" "http" {
@@ -83,6 +86,7 @@ resource "azurerm_network_interface" "nic" {
     subnet_id                     = azurerm_subnet.snet["web"].id
     private_ip_address_allocation = "Dynamic"
   }
+   provider = azurerm.SB1-infra
 }
 
 resource "azurerm_subnet_network_security_group_association" "snet_nsg_assoc" {
