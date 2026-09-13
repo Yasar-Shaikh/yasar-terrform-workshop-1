@@ -38,6 +38,7 @@ resource "azurerm_network_security_group" "nsg" {
     env   = "dev"
     owner = "yasar"
   }
+  depends_on = [ azurerm_virtual_network.vnet ]
 }
 
 resource "azurerm_network_security_rule" "http" {
@@ -79,4 +80,10 @@ resource "azurerm_network_interface" "nic" {
     subnet_id                     = azurerm_subnet.snet["web"].id
     private_ip_address_allocation = "Dynamic"
   }
+}
+
+resource "azurerm_subnet_network_security_group_association" "snet_nsg_assoc" {
+  for_each = azurerm_subnet.snet
+  subnet_id                 = azurerm_subnet.snet["web"].id
+  network_security_group_id = azurerm_network_security_group.nsg.id
 }
