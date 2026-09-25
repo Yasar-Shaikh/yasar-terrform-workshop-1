@@ -4,7 +4,7 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "5.0.0"
     }
-     random = {
+    random = {
       source  = "hashicorp/random"
       version = "3.9.1"
     }
@@ -14,11 +14,8 @@ terraform {
 provider "azurerm" {
   # Configuration options
   features {
-
-  }
+ }
   subscription_id = "0efc1bfe-4f3f-4361-b143-b737300e5e14"
-
-
 }
 
 provider "random" {
@@ -26,8 +23,9 @@ provider "random" {
 }
 
 provider "azurerm" {
+  # Configuration options
+  features {
+  }
   alias = "shared"
+  subscription_id = "0efc1bfe-4f3f-4361-b143-b737300e5e14"
 }
-
-# tes
-#test1234
