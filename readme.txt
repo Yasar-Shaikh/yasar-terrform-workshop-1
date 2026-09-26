@@ -11,3 +11,8 @@
  # How to pull Git repo if sync is not highlighted 
  git branch  -  First check which branch you're on:
  git pull origin main - if your branch is master or main 
+
+ # Push the changes made on local device 
+git add .
+git commit -m "Updated files"
+git push origin main
