@@ -9,8 +9,7 @@ access_tier = "Hot"
   lifecycle {
     prevent_destroy = True
   }
-  
-}
+ }
 
 resource "azurerm_resource_group" "rg-task" {
   name     = "ntms-task-yasar-rg"
