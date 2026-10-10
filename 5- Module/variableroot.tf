@@ -13,3 +13,13 @@ variable "project-owner" {
   default = "yasaraia"
 }
 
+variable "admin_username" {
+  type    = string
+  default = "vmadmin"
+}
+
+variable "admin_password" {
+  type      = string
+  default   = "P@ssw0rd!Workshop2024"
+  sensitive = true
+}

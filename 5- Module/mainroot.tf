@@ -17,5 +17,27 @@ module "network" {
   subnet_prefix = ["10.1.1.0/24"]
 }
 
+#module 2= security
+module "security" {
+  source        = "./modules/Security"
+  env           = var.env
+  location      = var.location
+  project-owner = var.project-owner
+  rg_name       = azurerm_resource_group.rg.name
+  subnet_id     = module.network.subnet_id
+}
+
+# module 3= compute
+module "compute" {
+  source         = "./modules/Compute"
+  env            = var.env
+  location       = var.location
+  project-owner  = var.project-owner
+  rg_name        = azurerm_resource_group.rg.name
+  subnet_id      = module.network.subnet_id
+  admin_username = var.admin_username
+  admin_password = var.admin_password
+}
+
 
 
