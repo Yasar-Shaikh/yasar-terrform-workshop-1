@@ -18,8 +18,9 @@ variable "admin_username" {
   default = "vmadmin"
 }
 
-variable "admin_password" {
-  type      = string
-  default   = "P@ssw0rd!Workshop2024"
-  sensitive = true
+
+variable "vm_count" {
+  type    = number
+  default = 2
 }
+

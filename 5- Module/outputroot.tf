@@ -23,9 +23,14 @@ output "nsg_name" {
 }
 
 output "vm_name" {
-  value = module.compute.vm_name
+  value = module.compute.vm_names
 }
 
 output "vm_id" {
   value = module.compute.vm_id
 }
+
+output "private_ips" {
+  value = module.compute.private_ips
+}
+
