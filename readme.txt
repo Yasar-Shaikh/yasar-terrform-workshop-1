@@ -16,3 +16,7 @@
 git add .
 git commit -m "Updated files"
 git push origin main
+
+ # Pull the changes made on local device 
+git branch
+git pull origin main

@@ -8,8 +8,8 @@ variable "env" {
         default     = "eastus"
     }
 
-variable "project" {
+variable "project-owner" {
     type        = string
-    default     = "ws"
+    default     = "yasar"
 }
 
