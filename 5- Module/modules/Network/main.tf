@@ -1,19 +1,22 @@
 resource "azurerm_virtual_network" "vnet" {
-  name                = :${var.env}-${var.project}-vnet
-  address_space       = [var.vnet_address_space]
+  name                = "${var.env}-${var.project-owner}-vnet"
+  address_space       = var.add_space
   location            = var.location
-  resource_group_name = var.resource_group_name
-tags = {
+  resource_group_name = var.rg_name
+  tags = {
     environment = var.env
-    module     = "network"
-  }
-
-  resource "azurerm_subnet" "subnet" {
-    name                = "${var.env}-${var.project}-snet"
-    resource_group_name = var.resource_group_name
-    virtual_network_name = azurerm_virtual_network.vnet.name
-    address_prefixes     = [var.subnet_prefix[count.index]]
+    module      = "network"
   }
 }
+
+
+resource "azurerm_subnet" "subnet" {
+  name                 = "${var.env}-${var.project-owner}-snet"
+  resource_group_name  = var.rg_name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = var.subnet_prefix
+}
+
+
 
 
