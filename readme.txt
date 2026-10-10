@@ -20,3 +20,8 @@ git push origin main
  # Pull the changes made on local device 
 git branch
 git pull origin main
+
+#Choclatey Installation
+choco install graphviz
+terraform graph | dot -Tpng -o graph.png
+start graph.png
